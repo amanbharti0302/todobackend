@@ -3,10 +3,11 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
-
+const AppError = require('./utils/appError');
 
 const globalErrorHandler = require('./controller/errorcontroller');
 const authrouter = require('./router/authrouter');
+const Todorouter = require('./router/todorouter');
 
 const app = express();
 app.enable('trust proxy');
@@ -28,7 +29,7 @@ app.use(mongoSanitize());
 
 
 app.use('/auth/',authrouter);
-
+app.use('/todo/',Todorouter);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
