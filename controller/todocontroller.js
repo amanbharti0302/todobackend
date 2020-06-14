@@ -36,7 +36,15 @@ exports.deleteproject = catchAsync(async(req,res,next)=>{
   })
 
   exports.getproject = catchAsync(async(req,res,next)=>{
-    const myproject =await project.find({access:req.body.access});
+   
+    let myprojectid=[];
+    var myproject=[];
+    myprojectid = req.body.projectid;
+
+    for(let i=0;i<myprojectid.length;i++){
+      myproject.push(await project.findById({_id:myprojectid[i]}))
+    }
+    
 
     res.status(200).json({
         status:"success",
