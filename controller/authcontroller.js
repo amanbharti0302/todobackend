@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 var nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
 
 const catchAsync = require('../utils/catchAsync');
 const User = require('../schema/userschema');
@@ -14,6 +15,11 @@ var transporter = nodemailer.createTransport({
 	}
 });
 
+const signToken = id => {
+	return jwt.sign({ id }, process.env.JWT_SECRET, {
+		expiresIn: process.env.JWT_EXPIRES_IN
+	});
+};
 
 
 exports.signup = catchAsync(async (req, res, next) => {
@@ -66,12 +72,14 @@ exports.login = catchAsync(async(req,res,next)=>{
     else{
 
       const ch = await bcrypt.compare(password, user.password);
-
       if(!ch){return next(new AppError('Email or password is wrong', 400));}
+
+      const token = signToken(user._id);
 
       res.status(200).json({
         status:'success',
-        user:user
+        user:user,
+        token:token
       });
     }
 
