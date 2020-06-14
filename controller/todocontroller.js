@@ -44,10 +44,26 @@ exports.deleteproject = catchAsync(async(req,res,next)=>{
     for(let i=0;i<myprojectid.length;i++){
       myproject.push(await project.findById({_id:myprojectid[i]}))
     }
-    
 
     res.status(200).json({
         status:"success",
         project:myproject
     });
+  })
+
+  exports.getoneprojectdetail = catchAsync(async(req,res,next)=>{
+    const projectid=req.body.projectid;
+    const currentUser= req.body.currentUser;
+
+    const currentproject =await project.find({_id:projectid,access:currentUser});
+
+    if(!currentproject[0]){
+      return next(new AppError('Unauthorised access',400));
+    }
+
+    res.status(200).json({
+      status:"success",
+      project:currentproject
+  });
+
   })

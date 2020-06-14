@@ -9,6 +9,7 @@ router.post('/newtodo',Todocontroller.createnew);
 router.post('/updatetodo', Todocontroller.updateproject);
 router.post('/deletetodo',Todocontroller.deleteproject);
 router.post('/get',Todocontroller.getproject);
+router.post('/getonepr',Todocontroller.getoneprojectdetail);
 
 router.get('/',authController.verifyemail);
 
