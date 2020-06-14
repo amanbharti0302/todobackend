@@ -102,3 +102,16 @@ exports.login = catchAsync(async(req,res,next)=>{
         res.send('<html><head><title>Email verification</title></head><body bgcolor="white"><center><h1>Email veified</h1></center><hr><center>covid19pr.com</center></body></html>');
       }
   })
+
+  exports.tokencheck = catchAsync(async (req, res,next) => {
+    const decoded = (jwt.verify)(req.body.token, process.env.JWT_SECRET);
+    const currentUser = await User.findById(decoded.id);
+
+    if (!currentUser) { return next(new AppError('Invalid user',400)); }
+    
+    res.status(200).json({
+      status:"success",
+      user:currentUser
+  });
+    
+})
