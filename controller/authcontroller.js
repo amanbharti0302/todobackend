@@ -64,6 +64,11 @@ exports.login = catchAsync(async(req,res,next)=>{
       return next(new AppError('Email is not verified either verify it from your email or go to reset password to verify', 400));
     }
     else{
+
+      const ch = await bcrypt.compare(password, user.password);
+
+      if(!ch){return next(new AppError('Email or password is wrong', 400));}
+
       res.status(200).json({
         status:'success',
         user:user
