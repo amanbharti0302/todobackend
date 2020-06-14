@@ -55,7 +55,7 @@ exports.deleteproject = catchAsync(async(req,res,next)=>{
     const projectid=req.body.projectid;
     const currentUser= req.body.currentUser;
 
-    const currentproject =await project.find({_id:projectid,access:currentUser});
+    const currentproject =await project.find({_id:projectid,access:currentUser._id});
 
     if(!currentproject[0]){
       return next(new AppError('Unauthorised access',400));
