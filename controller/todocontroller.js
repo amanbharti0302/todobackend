@@ -68,15 +68,4 @@ exports.deleteproject = catchAsync(async(req,res,next)=>{
 
   })
 
-  exports.tokencheck = catchAsync(async (req, res,next) => {
-    const decoded = (jwt.verify)(req.body.token, process.env.JWT_SECRET);
-    const currentUser = await user.findById(decoded.id);
-
-    if (!currentUser) { return next(new AppError('Invalid user',400)); }
-    
-    res.status(200).json({
-      status:"success",
-      user:currentUser
-  });
-    
-})
+ 

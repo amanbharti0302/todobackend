@@ -113,5 +113,4 @@ exports.login = catchAsync(async(req,res,next)=>{
       status:"success",
       user:currentUser
   });
-    
 })

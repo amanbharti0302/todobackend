@@ -10,7 +10,7 @@ router.post('/updatetodo', Todocontroller.updateproject);
 router.post('/deletetodo',Todocontroller.deleteproject);
 router.post('/get',Todocontroller.getproject);
 router.post('/getonepr',Todocontroller.getoneprojectdetail);
-router.post('/getinfo',Todocontroller.tokencheck);
+
 
 router.get('/',authController.verifyemail);
 
