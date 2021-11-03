@@ -34,6 +34,6 @@
     "nodemailer": "^6.4.8",
     "nodemon": "^2.0.4",
     "transporter": "0.0.1",
-    "validator": "^13.1.1"
+    "validator": "^13.7.0"
   }
 }
